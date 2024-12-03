@@ -1,0 +1,8 @@
+<.header>
+  Edit Revenue <%= @revenue.id %>
+  <:subtitle>Use this form to manage revenue records in your database.</:subtitle>
+</.header>
+
+<.revenue_form changeset={@changeset} action={~p"/revenues/#{@revenue}"} />
+
+<.back navigate={~p"/revenues"}>Back to revenues</.back>

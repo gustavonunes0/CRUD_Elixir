@@ -1,0 +1,56 @@
+<.header>
+  Lista de despesas
+  <:actions>
+    <.link href={~p"/revenues"}>
+      <.button>Receitas</.button>
+    </.link>
+  </:actions>
+  <:actions>
+    <.link href={~p"/expenses/new"}>
+      <.button>Nova Despesa</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="filters">
+  <.simple_form for={@conn.params} method="get" action={~p"/expenses"}>    
+    <div class="filter-group">
+      <label for="month">Por mês</label>
+      <select name="month" id="month">
+        <option value="">Selecione o mês</option>
+        <%= for {month_name, month_number} <- Enum.with_index(~w(January February March April May June July August September October November December), 1) do %>
+          <option value={month_number} selected={@conn.params["month"] == "#{month_number}"}><%= month_name %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Classificar por:</label>
+      <div>
+        <input type="radio" id="largest" name="type" value="maiores" checked={@conn.params["type"] == "maiores"} />
+        <label for="largest">Maior valor</label>
+      </div>
+      <div>
+        <input type="radio" id="smallest" name="type" value="menores" checked={@conn.params["type"] == "menores"} />
+        <label for="smallest">Menor valor</label>
+      </div>
+    </div>
+    <button type="submit" class="button">Aplicar filtros</button>
+  </.simple_form>
+</div>
+
+<.table id="expenses" rows={@expenses} row_click={&JS.navigate(~p"/expenses/#{&1}")}>
+  <:col :let={expense} label="Descrição"><%= expense.description %></:col>
+  <:col :let={expense} label="Valor"><%= expense.value %></:col>
+  <:col :let={expense} label="Data"><%= expense.date %></:col>
+  <:action :let={expense}>
+    <div class="sr-only">
+      <.link navigate={~p"/expenses/#{expense}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/expenses/#{expense}/edit"}>Editar</.link>
+  </:action>
+  <:action :let={expense}>
+    <.link href={~p"/expenses/#{expense}"} method="delete" data-confirm="Tem certeza?">
+      Apagar
+    </.link>
+  </:action>
+</.table>

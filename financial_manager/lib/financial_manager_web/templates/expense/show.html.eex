@@ -1,0 +1,8 @@
+<h1>Detalhes da Despesa</h1>
+
+<p><strong>Nome:</strong> <%= @expense.name %></p>
+<p><strong>Valor:</strong> <%= @expense.value %></p>
+<p><strong>Data:</strong> <%= @expense.date %></p>
+
+<%= link "Editar", to: Routes.expense_path(@conn, :edit, @expense.id) %>
+<%= link "Excluir", to: Routes.expense_path

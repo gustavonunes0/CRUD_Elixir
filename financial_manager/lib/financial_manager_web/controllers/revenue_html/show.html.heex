@@ -1,0 +1,17 @@
+<.header>
+  Revenue <%= @revenue.id %>
+  <:subtitle>This is a revenue record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/revenues/#{@revenue}/edit"}>
+      <.button>Editar receita</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Descrição"><%= @revenue.description %></:item>
+  <:item title="Valor"><%= @revenue.value %></:item>
+  <:item title="Dara"><%= @revenue.date %></:item>
+</.list>
+
+<.back navigate={~p"/revenues"}>Back to revenues</.back>

@@ -1,0 +1,56 @@
+<.header>
+  Lista de receitas
+  <:actions>
+    <.link href={~p"/expenses"}>
+      <.button>Despesas</.button>
+    </.link>
+  </:actions>
+  <:actions>
+    <.link href={~p"/revenues/new"}>
+      <.button>Nova Receita</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="filters">
+  <.simple_form for={@conn.params} method="get" action={~p"/revenues"}>
+    <div class="filter-group">
+      <label for="month">Por mês</label>
+      <select name="month" id="month">
+        <option value="">Selecione o mês</option>
+        <%= for {month_name, month_number} <- Enum.with_index(~w(January February March April May June July August September October November December), 1) do %>
+          <option value={month_number} selected={@conn.params["month"] == "#{month_number}"}><%= month_name %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Classificar por:</label>
+      <div>
+        <input type="radio" id="largest" name="type" value="maiores" checked={@conn.params["type"] == "maiores"} />
+        <label for="largest">Maior valor</label>
+      </div>
+      <div>
+        <input type="radio" id="smallest" name="type" value="menores" checked={@conn.params["type"] == "menores"} />
+        <label for="smallest">Menor valor</label>
+      </div>
+    </div>
+    <button type="submit" class="button">Aplicar</button>
+  </.simple_form>
+</div>
+
+<.table id="revenues" rows={@revenues} row_click={&JS.navigate(~p"/revenues/#{&1}")}>
+  <:col :let={revenue} label="Descrição"><%= revenue.description %></:col>
+  <:col :let={revenue} label="Valor"><%= revenue.value %></:col>
+  <:col :let={revenue} label="Data"><%= revenue.date %></:col>
+  <:action :let={revenue}>
+    <div class="sr-only">
+      <.link navigate={~p"/revenues/#{revenue}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/revenues/#{revenue}/edit"}>Editar</.link>
+  </:action>
+  <:action :let={revenue}>
+    <.link href={~p"/revenues/#{revenue}"} method="delete" data-confirm="Tem certeza?">
+      Apagar
+    </.link>
+  </:action>
+</.table>

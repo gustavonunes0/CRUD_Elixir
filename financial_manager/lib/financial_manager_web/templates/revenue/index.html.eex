@@ -1,0 +1,32 @@
+<h1>Receitas</h1>
+
+<%= if @revenues do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Valor</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for revenue <- @revenues do %>
+        <tr>
+          <td><%= revenue.name %></td>
+          <td><%= revenue.value %></td>
+          <td><%= revenue.date %></td>
+          <td>
+            <%= link "Ver", to: Routes.revenue_path(@conn, :show, revenue.id) %>
+            <%= link "Editar", to: Routes.revenue_path(@conn, :edit, revenue.id) %>
+            <%= link "Excluir", to: Routes.revenue_path(@conn, :delete, revenue.id), method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Nenhuma receita encontrada.</p>
+<% end %>
+
+<%= link "Adicionar Nova Receita", to: Routes.revenue_path(@conn, :new) %>

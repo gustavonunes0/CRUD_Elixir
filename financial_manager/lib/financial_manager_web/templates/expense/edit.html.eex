@@ -1,0 +1,26 @@
+<h1>Editar Despesa</h1>
+
+<%= form_for @changeset, Routes.expense_path(@conn, :update, @expense), fn f -> %>
+  <div>
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div>
+    <%= label f, :value %>
+    <%= number_input f, :value %>
+    <%= error_tag f, :value %>
+  </div>
+
+  <div>
+    <%= label f, :date %>
+    <%= date_input f, :date %>
+    <%= error_tag f, :date %>
+  </div>
+
+  <div>
+    <%= submit "Salvar Alterações" %>
+  </div>
+<% end %>
+<%= link "Voltar", to: Routes.expense_path(@conn, :index) %>

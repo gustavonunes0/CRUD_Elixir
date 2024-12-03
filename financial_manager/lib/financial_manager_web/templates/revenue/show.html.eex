@@ -1,0 +1,9 @@
+<h1>Detalhes da Receita</h1>
+
+<p><strong>Nome:</strong> <%= @revenue.name %></p>
+<p><strong>Valor:</strong> <%= @revenue.value %></p>
+<p><strong>Data:</strong> <%= @revenue.date %></p>
+
+<%= link "Editar", to: Routes.revenue_path(@conn, :edit, @revenue.id) %>
+<%= link "Excluir", to: Routes.revenue_path(@conn, :delete, @revenue.id), method: :delete %>
+<%= link "Voltar", to: Routes.revenue_path(@conn, :index) %>

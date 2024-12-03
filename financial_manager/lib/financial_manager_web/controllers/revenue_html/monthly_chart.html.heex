@@ -1,0 +1,20 @@
+<div>
+  <h1>Monthly Revenues Chart</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Total Revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for %{month: month, total: total} <- @revenues_by_month do %>
+        <tr>
+          <td><%= Timex.month_name(month |> round()) %></td>
+          <td><%= total %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

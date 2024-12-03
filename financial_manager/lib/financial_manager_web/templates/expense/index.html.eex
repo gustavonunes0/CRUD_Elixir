@@ -1,0 +1,70 @@
+<%= form_for @conn, @action, [method: :get], fn f -> %>
+  <div>
+    <!-- Filtro por mês -->
+    <div>
+      <label for="month">Mês:</label>
+      <select name="month" id="month">
+        <option value="">Selecione o mês</option>
+        <option value="1">Janeiro</option>
+        <option value="2">Fevereiro</option>
+        <option value="3">Março</option>
+        <option value="4">Abril</option>
+        <option value="5">Maio</option>
+        <option value="6">Junho</option>
+        <option value="7">Julho</option>
+        <option value="8">Agosto</option>
+        <option value="9">Setembro</option>
+        <option value="10">Outubro</option>
+        <option value="11">Novembro</option>
+        <option value="12">Dezembro</option>
+      </select>
+    </div>
+
+    <!-- Filtro por período -->
+    <div>
+      <label for="start_date">Data Início:</label>
+      <input type="date" name="start_date" id="start_date">
+
+      <label for="end_date">Data Fim:</label>
+      <input type="date" name="end_date" id="end_date">
+    </div>
+
+    <!-- Filtro por tipo (maiores/menores despesas) -->
+    <div>
+      <label for="type">Tipo:</label>
+      <select name="type" id="type">
+        <option value="">Selecione um tipo</option>
+        <option value="maiores">Maiores Despesas</option>
+        <option value="menores">Menores Despesas</option>
+      </select>
+    </div>
+
+    <div>
+      <button type="submit">Filtrar</button>
+    </div>
+  </div>
+<% end %>
+
+<hr>
+
+<!-- Exibição das Despesas -->
+<h1>Despesas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descrição</th>
+      <th>Data</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for expense <- @expenses do %>
+      <tr>
+        <td><%= expense.description %></td>
+        <td><%= expense.date %></td>
+        <td><%= expense.amount %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
